@@ -1,0 +1,21 @@
+name: flutter_bloc_architecture
+description: Repositório criado com o intuíto de pôr em prática os conhecimentos com a arquitetura Bloc para gerenciamento de estados no Flutter.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter_bloc: ^7.0.0
+  equatable: ^2.0.2
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
