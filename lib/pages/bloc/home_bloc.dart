@@ -3,26 +3,17 @@ import 'package:flutter_bloc_architecture/pages/bloc/home_event.dart';
 import 'package:flutter_bloc_architecture/pages/bloc/home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc(HomeState initialState) : super(HomeLoadingState());
+  HomeBloc() : super(HomeLoadingState()){
+    on<HomeFetchList>((event, emit) async {
+      emit(HomeLoadingState());
+      var list = await _fetchList();
+      emit(HomeStateLoaded(list: list));
+    });
 
-  @override
-  Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    var state;
-    switch (event.runtimeType) {
-      case HomeFetchList:
-        state = await _fetchList();
-        break;
-      case HomeFetchListWithError:
-        state = await _fetchListWithError();
-        break;
-      case HomeFetchListWithEmptyList:
-        state = await _fetchListWithEmptyList();
-        break;
-    }
-    yield state;
+    on<HomeFetchListWithEmptyList>((event, emit) => emit(HomeStateEmptyList()));
   }
 
-  Future<HomeState> _fetchList() async {
+  Future<List> _fetchList() async {
     var list = await Future.delayed(
       Duration(
         seconds: 3,
@@ -47,7 +38,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         'Item 17',
       ],
     );
-    return HomeStateLoaded(list: list);
+    return list;
   }
 
   Future<HomeState> _fetchListWithEmptyList() async {

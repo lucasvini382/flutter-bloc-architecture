@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'pages/bloc/home_bloc.dart';
 import 'pages/bloc/home_event.dart';
-import 'pages/bloc/home_state.dart';
 import 'pages/home_page.dart';
 
 void main() {
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider<HomeBloc>(
         create: (BuildContext context) =>
-            HomeBloc(HomeLoadingState())..add(HomeFetchListWithEmptyList()),
+            HomeBloc()..add(HomeFetchList()),
         child: HomePage(),
       ),
     );
